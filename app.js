@@ -10,6 +10,14 @@ var express = require('express'),
 
 var app = express();
 
+// preview uses basic auth
+if ('preview' === app.get('env')) {
+  app.use(express.basicAuth(function(username, password, callback) {
+    callback(null,
+      (username === process.env.BASIC_AUTH_USERNAME && password === process.env.BASIC_AUTH_PASSWORD));
+  }));
+}
+
 /* jshint ignore:start */
 var helpers = require('./helpers')(app);
 /* jshint ignore:end */
