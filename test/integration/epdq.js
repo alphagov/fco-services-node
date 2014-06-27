@@ -69,7 +69,7 @@ describe("epdq routes", function(){
           done();
         });
     });
-    it("should set the correct expiry headers", function(done){
+    it("should set the correct expiry and x-frame-options headers", function(done){
       request(app)
         .get('/start')
         .set('host','pay-register-death-abroad.service.gov.uk')
@@ -77,6 +77,7 @@ describe("epdq routes", function(){
         .end(function(err, res){
           should.not.exist(err);
           res.headers['cache-control'].should.equal('max-age=1800, public');
+          res.headers['x-frame-options'].should.equal('DENY');
           done();
         });
     });
@@ -209,6 +210,8 @@ describe("epdq routes", function(){
                 transaction = renderArgs[1].transaction,
                 formAttrs = epdqRequest.formAttributes();
 
+            res.headers['x-frame-options'].should.equal('DENY');
+
             transaction.slug.should.equal('pay-register-birth-abroad');
             transaction.title.should.equal('Payment to register a birth abroad');
             transaction.document_cost.should.equal(65);
@@ -279,6 +282,8 @@ describe("epdq routes", function(){
                   epdqParams = epdqResponse.parameters(),
                   journeyDescription = renderArgs[1].journeyDescription,
                   transaction = renderArgs[1]._locals.transaction;
+
+              res.headers['x-frame-options'].should.equal('DENY');
 
               transaction.title.should.equal("Payment to register a death abroad");
               transaction.slug.should.equal("pay-register-death-abroad");

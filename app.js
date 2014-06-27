@@ -55,9 +55,9 @@ app.get('/', routes.epdq.middleware.findTransaction, routes.epdq.rootRedirect);
 
 // EPDQ Transaction Routes.
 app.get('/start', routes.epdq.middlewares, routes.epdq.start);
-app.post('/confirm', routes.epdq.middleware.findTransaction, routes.epdq.confirm);
+app.post('/confirm', routes.epdq.defaultMiddlewares, routes.epdq.confirm);
 app.get('/confirm', function (req, res) { res.redirect('/start'); });
-app.get('/done', routes.epdq.middleware.findTransaction, routes.epdq.done);
+app.get('/done', routes.epdq.defaultMiddlewares, routes.epdq.done);
 
 module.exports = app;
 

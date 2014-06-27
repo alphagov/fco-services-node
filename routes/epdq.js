@@ -14,13 +14,23 @@ var setExpiry = function (req, res, next) {
   next();
 };
 
+var setXFrameOptionsDeny = function (req, res, next) {
+  res.setHeader('X-Frame-Options', 'DENY');
+  next();
+};
+
 /**
  * EPDQ transaction actions.
  *
  */
 module.exports = {
-  middleware : { setExpiry : setExpiry, findTransaction : TransactionService.findTransaction },
-  middlewares : [ setExpiry, TransactionService.findTransaction ],
+  middleware : {
+    setExpiry : setExpiry,
+    setXFrameOptionsDeny : setXFrameOptionsDeny,
+    findTransaction : TransactionService.findTransaction
+  },
+  defaultMiddlewares : [ TransactionService.findTransaction, setXFrameOptionsDeny ],
+  middlewares : [ setExpiry, TransactionService.findTransaction, setXFrameOptionsDeny ],
 
   rootRedirect : function (req, res) {
     res.redirect(req.url + 'start');
