@@ -1,15 +1,27 @@
-<% var epdqParams = epdqResponse.parameters(); -%>
-<h2>Payment confirmation</h2>
+<h2>Authorisation for payment taken</h2>
 
-<p>Your payment of &pound;<%= formatMoney(parseInt(epdqParams['amount'],10)||0) %> has been received by the Legalisation Office.</p>
+<p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
 
-<p>Your payment number is <%= epdqParams['payid'] %>.</p>
+<div class ="content-block">
+	<div class ="application-notice info-notice">
+		<p>Date: <%= date %></p>
+		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
+		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
+		<p>Service: <%= premiumService %></p>
+		<p>Number of items: <%= merchantReturnDataJson.dc %></p>
+		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
+		<p>Card type: <%= extractedParameters.paymentMethod %></p>
+		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%></p>
+	</div>
+</div>
+
+<p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
+<p>When we have confirmed we can provide the service we will take the payment and you will receive a receipt via email.</p>
+
 
 <h2>What to do next</h2>
 
-<p>Print out this page. You’ll also get an email confirmation.</p>
-
-<p>If you can’t print out this page, note down your payment number and bring it with your documents.</p>
+<p>Bring a print out of this payment confirmation page or your emailed confirmation along with the document(s) you wish to legalise.</p>
 
 <p>Contact the Legalisation Office if you have any problems.</p>
 
@@ -20,7 +32,7 @@
 
 
 <h2>Opening times</h2>
-<p>The opening hours of the drop-off office are:</p>
+<p>The opening hours of the premium service office are:</p>
 <ul>
   <li>9am to 12.30pm (the last drop-off time for pre-lunch pickup is 11am)</li>
   <li>1:30pm to 5pm (the last drop-off time for same day collection is 3:30pm)</li>

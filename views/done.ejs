@@ -1,3 +1,4 @@
+
 <main id="content" role="main" class="group">
 
   <header class="page-header group">
@@ -9,7 +10,7 @@
     <article role="article" class="group">
       <div class="inner">
 
-        <%- partial("partials/transactions/" + transaction.slug + "/_done", { epdqResponse: epdqResponse }) %>
+        <%- partial("partials/transactions/" + transaction.slug + "/_done", { smartPayResponse: smartPayResponse, extractedParameters: extractedParameters, premiumService: premiumService, date: date, merchantReturnDataJson: merchantReturnDataJson }) %>
 
         <section class="done">
           <p>

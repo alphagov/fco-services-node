@@ -1,13 +1,29 @@
-<% var epdqParams = epdqResponse.parameters(); -%>
-<p class="summary">You have completed your payment to the Foreign &amp; Commonwealth Office (FCO).</p>
+<h2>Authorisation for payment taken</h2>
 
-<p>You have paid for <%= pluralise("death registration", registrationCount(epdqParams)) %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (epdqParams['postage'] == 'yes'){ %>, plus postage<% } -%>.</p>
+<p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
 
-<p>Your online payment reference is <%= epdqParams['payid'] %>. You must:</p>
+<div class ="content-block">
+	<div class ="application-notice info-notice">
+		<p>Date: <%= date %></p>
+		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
+		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
+		<p>Service: <%= transaction.slug %></p>
+		<p>Number of items: <%= merchantReturnDataJson.rc %></p>
+		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
+		<p>Card type: <%= extractedParameters.paymentMethod %></p>
+		<p>You have paid for <%= pluralise("death registration", registrationCount(merchantReturnDataJson)) %> and <%= pluralise("certificate", documentCount(merchantReturnDataJson)) %> and postage coverage to <%=capitalise(merchantReturnDataJson.po) %>.</p>
+		
+	</div>
+</div>
+
+<p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
+<p>When we have confirmed we can provide the service we will take the payment and you will receive a receipt via email.</p>
+
+<h2>What to do next</h2>
 
 <ul>
   <li>write the payment reference on your application form</li>
-  <li>print out this page and include it with your application</li>
+  <li>print out this page or your emailed confirmation and include it with your application</li>
 </ul>
 
 <p>If you’re in the UK then send your application form and documents to:</p>

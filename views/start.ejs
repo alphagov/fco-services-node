@@ -8,11 +8,11 @@
   <div class="article-container group">
     <article role="article" class="group">
       <div class="inner">
-        <form action="/confirm" method="post">
+        <form action="/confirm" method="post" id="letsBegin" novalidate>
         <% if (typeof errors != 'undefined'){ %>
           <p class="error-message"><%= errors %></p>
         <% } %>
-
+		<p id="error-message"></p>
           <input type="hidden" id="transaction_country" name="transaction[country]" value="<%= country %>" />
 
           <%- partial("partials/transactions/" + transaction.slug + "/intro") %>
@@ -21,6 +21,34 @@
             <button class="button" type="submit" >Calculate total</button>
           </p>
         </form>
+		<script>
+			$("#letsBegin").validate({
+				errorLabelContainer: "#error-message",
+				highlight: function(element, errorClass, validClass) {
+					$(element).addClass(errorClass).removeClass(validClass);
+					$("#error-message").addClass("error-message");
+				},
+				wrapper: "li",
+				onfocusout: false,
+				onkeyup: false,
+				onclick: false,
+				focusInvalid: true,
+				messages: {
+					"transaction[email_address]": {
+						required: "A valid email address is required."
+					},
+					"transaction[dc]": {
+						required: "Please enter the number of documents you want to legalise."
+					},
+					"transaction[po]": {
+						required: "Please select a postage option."
+					},
+					"transaction[document_type]": {
+						required: "Please select a document type."
+					}
+				}
+			});
+		</script>
       </div>
     </article>
   </div>

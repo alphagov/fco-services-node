@@ -3,7 +3,7 @@
   <% for (var value in transaction.document_types){ %>
     <li>
       <label for="transaction_document_type_<%= value %>">
-        <input id="transaction_document_type_<%= value %>" type="radio" name="transaction[document_type]" value="<%= value %>" /> <%= titleCase(transaction.document_types[value]) %>
+        <input id="transaction_document_type_<%= value %>" type="radio" required name="transaction[document_type]" value="<%= value %>" /> <%= titleCase(transaction.document_types[value]) %>
       </label>
     </li>
   <% } %>

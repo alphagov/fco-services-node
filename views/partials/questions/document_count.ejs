@@ -1,5 +1,5 @@
 <% if (typeof questionType != 'undefined' && questionType == 'text'){ %>
-  <%- partial("partials/questions/number_field", { questionText: questionText, transactionKey: "document_count" }) %>
+  <%- partial("partials/questions/number_field", { questionText: questionText, transactionKey: "dc" }) %>
 <% } else { %>
-  <%- partial("partials/questions/number_dropdown", { questionText: questionText, transactionKey: "document_count" }) %>
+  <%- partial("partials/questions/number_dropdown", { questionText: questionText, transactionKey: "dc" }) %>
 <% } %>
