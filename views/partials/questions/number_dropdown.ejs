@@ -1,4 +1,4 @@
-<% var startNumber = (transactionKey === 'document_count' && transaction['allow_zero_document_count']) ? 0 : 1; -%>
+<% var startNumber = (transactionKey === 'dc' && transaction['allow_zero_document_count']) ? 0 : 1; -%>
 <p>
   <label for="transaction_<%= transactionKey %>">
     <%= questionText %><br />

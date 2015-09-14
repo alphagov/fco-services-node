@@ -10,13 +10,14 @@
       <div class="inner">
 
         <%- partial("partials/transactions/" + transaction.slug + "/_confirm", { calculation: calculation }) %>
-
-        <form action="<%= epdqRequest.requestUrl() %>" method="post" class="epdq-submit">
-        <% var formAttrs =  epdqRequest.formAttributes(); %>
-        <% for(var key in formAttrs){ %>
-          <input type="hidden" name="<%= key %>" value="<%= formAttrs[key] %>" />
+        
+		<form action=<%= smartPayRequest.requestUrl() %> method="post" class="smartpay-submit">
+        <% var ordered =  requestParameters; %>
+        <% for(var key in ordered){ %>
+          <input type="hidden" name="<%= key %>" value="<%= ordered[key] %>" />
         <% } %>
-
+		<input type="hidden" name="merchantSig" value="<%= smartPayRequest.hmacSignature() %>" />
+		
         <p id="get-started" class="get-started group">
           <button class="button" type="submit">Pay</button>
           <span class="destination"> on Barclaycard</span>

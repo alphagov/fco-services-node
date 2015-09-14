@@ -1,10 +1,23 @@
-<% var epdqParams = epdqResponse.parameters(); -%>
-<h2>Payment confirmation</h2>
 
-<p>Your payment of &pound;<%= epdqParams['amount'] %> has been received by the Legalisation Office.</p>
+<h2>Authorisation for payment taken</h2>
 
-<p>Your payment number is <%= epdqParams['payid'] %>.</p>
+<p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
 
+<div class ="content-block">
+	<div class ="application-notice info-notice">
+		<p>Date: <%= date %></p>
+		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
+		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
+		<p>Service: <%= transaction.slug %></p>
+		<p>Number of items: <%= merchantReturnDataJson.dc %></p>
+		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
+		<p>Card type: <%= extractedParameters.paymentMethod %></p>
+		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%> including <%= capitalise(merchantReturnDataJson.po) %> postage</p>
+	</div>
+</div>
+
+<p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
+<p>When we have confirmed we can provide the service we will take the payment and you will receive a receipt via email.</p>
 
 <h2>What to do next</h2>
 
@@ -12,10 +25,10 @@
 
 <ul>
   <li>the documents you want legalised</li>
-  <li>a signed <a href="https://www.gov.uk/government/publications/legalisation-application-form">Legalisation application form</a> (with your payment number added)</li>
-  <li>a printout of this payment confirmation page</li>
-  <% if (epdqParams['postage_option'] == "courier-or-prepaid"){ %>
-  <li>an A4-sized prepaid envelope so your documents can be returned</li>
+  <li>a signed <a href="https://www.gov.uk/government/publications/legalisation-application-form">Legalisation application form</a> (with your payment reference number added)</li>
+  <li>a print out of this payment confirmation page or your emailed confirmation</li>
+  <% if (merchantReturnDataJson.po == "prepaid"){ %>
+  <li>an A4-sized envelope (prepaid if using Royal Mail) so your documents can be safely returned</li>
   <% } -%>
 </ul>
 
@@ -32,7 +45,7 @@
 
 <h2>If you’re abroad or using a courier</h2>
 
-<p>Send your registration to the following address if you’re abroad or using a courier service in the UK:</p>
+<p>Send your application to the following address if you’re abroad or using a courier service in the UK:</p>
 
 <div class="address">
   <p>The Legalisation Office</p>

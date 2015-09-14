@@ -2,7 +2,7 @@
 
 # Build script to ensure static assets are built and copied
 # to the correct places
-# A working person's version of gulp.js
+# A working person's version of gulp.js 
 
 MAGENTA="\033[1;35m"
 RED="\033[1;31m"
@@ -48,7 +48,7 @@ function copy_templates() {
 
 function add_local_vars_to_content_partial() {
   color_prompt "Adding local variables to content partial"
-  sed -i '' "s|<%- partial('partials/_content') %>|<%- partial('partials/_content', { body: body, journeyDescription: journeyDescription }) %>|g" views/layout.ejs
+  sed -i "s|<%- partial('partials/_content') %>|<%- partial('partials/_content', { body: body, journeyDescription: journeyDescription }) %>|g" views/layout.ejs
 }
 
 function compile_scss() {

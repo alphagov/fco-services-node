@@ -8,7 +8,9 @@ var express = require('express'),
     helmet = require('helmet'),
     http = require('http'),
     path = require('path'),
-    partials  = require('express-partials');
+    partials  = require('express-partials'),
+	MongoClient = require('mongodb').MongoClient,
+	config = require('./config/smart_pay.js').config;
 
 var app = express();
 
@@ -64,16 +66,23 @@ if ('development' === app.get('env')) {
 app.get('/healthcheck', routes.healthcheck);
 
 // Redirect root to transaction start page on GOV.UK
-app.get('/', routes.epdq.middleware.findTransaction, routes.epdq.rootRedirect);
+app.get('/', routes.smart_pay.middleware.findTransaction, routes.smart_pay.rootRedirect);
 
 // EPDQ Transaction Routes.
-app.get('/start', routes.epdq.middlewares, routes.epdq.start);
-app.post('/confirm', routes.epdq.middleware.findTransaction, routes.epdq.confirm);
+app.get('/start', routes.smart_pay.middlewares, routes.smart_pay.start);
+app.post('/confirm', routes.smart_pay.middleware.findTransaction, routes.smart_pay.confirm);
 app.get('/confirm', function (req, res) { res.redirect('/start'); });
-app.get('/done', routes.epdq.middleware.findTransaction, routes.epdq.done);
+app.get('/done', routes.smart_pay.middleware.findTransaction, routes.smart_pay.done);
+app.post('/notification', routes.smart_pay.middleware.findTransaction, routes.smart_pay.notification);
 
 module.exports = app;
 
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+MongoClient.connect(config.dbConnectionString, function (err, database) {
+	if (err) {
+		return console.dir(err);
+	}
+	db = database;
+	http.createServer(app).listen(app.get('port'), function () {
+		console.log('Express server listening on port ' + app.get('port'));
+	});
 });

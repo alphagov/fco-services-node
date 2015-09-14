@@ -1,6 +1,8 @@
 {
   "pay-register-death-abroad":{
     "account":"birth-death-marriage",
+	"tracking_site_id":7,
+    "test_tracking_site_id":14,
     "registration_type":"death",
     "registration":true,
     "document_cost":65,
@@ -26,6 +28,8 @@
   },
   "pay-legalisation-post":{
     "account":"legalisation-post",
+	"tracking_site_id":5,
+    "test_tracking_site_id":12,
     "postage_options": [
       {
         "key":"prepaid",
@@ -54,12 +58,16 @@
   },
   "pay-legalisation-drop-off":{
     "account":"legalisation-drop-off",
+	"tracking_site_id":4,
+    "test_tracking_site_id":11,
     "document_cost":75,
     "postage_cost":false,
-    "title":"Pay to legalise documents using the drop-off service"
+    "title":"Pay to legalise documents using the premium service"
   },
   "pay-register-birth-abroad":{
     "account":"birth-death-marriage",
+	"tracking_site_id":6,
+    "test_tracking_site_id":13,
     "registration_type":"birth",
     "registration":true,
     "document_cost":65,
@@ -86,6 +94,8 @@
   },
   "pay-foreign-marriage-certificates":{
     "account":"birth-death-marriage",
+	"tracking_site_id":3,
+    "test_tracking_site_id":15,
     "document_types":{
       "certificate-of-no-impediment":"certificate of no impediment",
       "nulla-osta":"Nulla Osta"

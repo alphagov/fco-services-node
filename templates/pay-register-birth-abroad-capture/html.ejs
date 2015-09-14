@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<body style="margin: 0; padding: 0;">
+<table style="width:800px;border-collapse:collapse;">
+<tr>
+<td style="background-color:#0b0c0c;"><img src="cid:govuk" alt="">
+</td>
+</tr>
+  <tr>
+    <td>
+
+<h1 style="font-family:nta, Arial, sans-serif;font-size: 3.2em;line-height: 1.04167;font-weight: 700;text-transform: none;">Payment to register a birth abroad</h1>
+
+<h2 style="font-family:nta, Arial, sans-serif;font-size: 1.5em;line-height: 1.04167;font-weight: bold;text-transform: none;">Receipt</h2>
+
+<p style="font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Thank you for your order from the Foreign & Commonwealth Office. We have now taken payment for the following:</p>
+
+
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Date: <%= date %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Payment Reference: <%= merchantReference %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">FCO Reference: <%= pspReference %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Service: <%= slug %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Number of items: <%= dc %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Amount: &pound;<%= pa %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Card type: <%= paymentMethod %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">Card number: XXXX XXXX XXXX <%= lastFourDigits %></p>
+<p style="text-indent: 25px;font-family:nta, Arial, sans-serif; font-size:1em; line-height:1.31579; font-weight:50 text-transform:none;">You have paid for <%= birthRegistrations %> and <%= certificates %> including postage coverage to <%= postage %>.</p>
+
+
+	</td>
+  </tr>
+</table>
+</body>

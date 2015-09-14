@@ -22,6 +22,7 @@ GOVUK.performance.stageprompt = (function () {
 
 $(function () {
   GOVUK.performance.stageprompt.setup(function (journeyStage) {
-    _gaq.push(['_trackEvent', journeyStage , 'n/a', undefined, undefined, true]);
+    /*_gaq.push(['_trackEvent', journeyStage , 'n/a', undefined, undefined, true]);*/
+    _paq.push(['trackEvent', journeyStage, 'n/a', undefined, undefined]);
   })
 });

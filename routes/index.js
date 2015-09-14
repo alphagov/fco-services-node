@@ -2,7 +2,7 @@
  * Require and export siblings.
  */
 exports.healthcheck = require('./healthcheck').healthcheck;
-exports.epdq = require('./epdq');
+exports.smart_pay = require('./smart_pay');
 exports.errors = require('./errors');
 
 // Provide request headers for secure connections which are omitted
