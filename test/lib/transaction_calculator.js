@@ -14,32 +14,32 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost of a single document", function(){
-      calculator.calculate({'document_count': 1}).totalCost.should.equal(20);
+      calculator.calculate({'dc': 1}).totalCost.should.equal(20);
     });
 
     it("calculates the cost of multiple documents", function(){
-      calculator.calculate({'document_count': 3}).totalCost.should.equal(60);
+      calculator.calculate({'dc': 3}).totalCost.should.equal(60);
     });
 
     it("calculates the cost with postage", function(){
-      calculator.calculate({'document_count': 3, 'postage': 'yes'}).totalCost.should.equal(65);
+      calculator.calculate({'dc': 3, 'p': 'yes'}).totalCost.should.equal(65);
     });
 
     it("builds and item list for a single document", function(){
-      calculator.calculate({'document_count': 1}).formattedItemList().should.equal("1 document");
+      calculator.calculate({'dc': 1}).formattedItemList().should.equal("1 document");
     });
 
     it("builds and item list for multiple documents", function(){
-      calculator.calculate({'document_count': 5}).formattedItemList().should.equal("5 documents");
+      calculator.calculate({'dc': 5}).formattedItemList().should.equal("5 documents");
     });
 
     it("builds and item list for multiple documents plus postage", function(){
-      calculator.calculate({'document_count': 5, 'postage': 'yes'}).formattedItemList().should.equal("5 documents plus postage");
+      calculator.calculate({'dc': 5, 'p': 'yes'}).formattedItemList().should.equal("5 documents plus postage");
     });
 
     it("raises an error if the document count is not a number", function(){
       (function(){
-        calculator.calculate({'document_count': 'lotz'});
+        calculator.calculate({'dc': 'lotz'});
       }).should.throw("Invalid document count");
     });
   });
@@ -54,15 +54,15 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost for multiple documents", function(){
-      calculator.calculate({'document_count': 3}).totalCost.should.equal(60);
+      calculator.calculate({'dc': 3}).totalCost.should.equal(60);
     });
 
     it("calculates the cost for zero documents", function(){
-      calculator.calculate({'document_count': 0}).totalCost.should.equal(0);
+      calculator.calculate({'dc': 0}).totalCost.should.equal(0);
     });
 
     it("calculates the cost for zero documents including postage", function(){
-      calculator.calculate({'document_count': 0, 'postage': 'yes'}).totalCost.should.equal(5);
+      calculator.calculate({'dc': 0, 'p': 'yes'}).totalCost.should.equal(5);
     });
   });
   describe("given a transaction with registration and uk postage costs", function(){
@@ -80,7 +80,7 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage_option': 'uk'}).totalCost.should.equal(154.5);
+      calculator.calculate({'rc': 2, 'po': 'uk'}).totalCost.should.equal(154.5);
     });
   });
   describe("given a transaction with registration and european postage costs", function(){
@@ -98,7 +98,7 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postage_option': 'europe'}).totalCost.should.equal(222.5);
+      calculator.calculate({'rc': 2, 'p': 'yes', 'po': 'europe'}).totalCost.should.equal(222.5);
     });
     describe("given a transaction with registration and worldwide postage costs", function(){
     beforeEach(function(){
@@ -114,7 +114,7 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postage_option': 'rest-of-world'}).totalCost.should.equal(232);
+      calculator.calculate({'rc': 2, 'p': 'yes', 'po': 'rest-of-world'}).totalCost.should.equal(232);
     });
   });
 });
@@ -133,37 +133,37 @@ describe("TransactionCalculator", function(){
     });
     it("raises and exception if no document type is specified", function(){
       (function(){
-        calculator.calculate({'document_count': 1})
+        calculator.calculate({'dc': 1})
       }).should.throw("Invalid document type");
     });
 
     it("builds an item list for a single document", function(){
       calculator.calculate({
-        'document_count': 1, 'document_type': 'tea-assurance-document'
+        'dc': 1, 'document_type': 'tea-assurance-document'
       }).formattedItemList().should.equal("1 Tea assurance document");
     });
 
     it("builds an item list for multiple documents", function(){
       calculator.calculate({
-        'document_count': 2, 'document_type': 'tea-assurance-document'
+        'dc': 2, 'document_type': 'tea-assurance-document'
       }).formattedItemList().should.equal("2 Tea assurance documents");
     });
 
     it("builds an item list for multiple documents with postage", function(){
       calculator.calculate({
-        'document_count': 2, 'document_type': 'tea-assurance-document', 'postage': 'yes'
+        'dc': 2, 'document_type': 'tea-assurance-document', 'p': 'yes'
       }).formattedItemList().should.equal("2 Tea assurance documents plus postage");
     });
 
     it("builds an item list for a single certificate", function(){
       calculator.calculate({
-        'document_count': 1, 'document_type': 'certificate-of-biscuit-quality'
+        'dc': 1, 'document_type': 'certificate-of-biscuit-quality'
       }).formattedItemList().should.equal("1 Certificate of biscuit quality");
     });
 
     it("builds an item list for multiple certificates", function(){
       calculator.calculate({
-        'document_count': 2, 'document_type': 'certificate-of-biscuit-quality'
+        'dc': 2, 'document_type': 'certificate-of-biscuit-quality'
       }).formattedItemList().should.equal("2 Certificates of biscuit quality");
     });
   });
@@ -194,43 +194,43 @@ describe("TransactionCalculator", function(){
 
     it("calculates the cost of postage", function(){
       calculator.calculate({
-        'document_count': 1, 'postage_option': 'iron-horse'
+        'dc': 1, 'po': 'iron-horse'
       }).totalCost.should.equal(40);
     });
 
     it("calculates the cost of postage and documents", function(){
       calculator.calculate({
-        'document_count': 3, 'postage_option': 'flying-machine'
+        'dc': 3, 'po': 'flying-machine'
       }).totalCost.should.equal(95);
     });
 
     it("builds an item list including postage type", function(){
       calculator.calculate({
-        'document_count': 1, 'postage_option': 'horse-and-cart'
+        'dc': 1, 'po': 'horse-and-cart'
       }).formattedItemList().should.equal("1 document plus Horse and cart postage");
     });
 
     it("builds an item list of multiple documents including the postage type", function(){
       calculator.calculate({
-        'document_count': 3, 'postage_option': 'flying-machine'
+        'dc': 3, 'po': 'flying-machine'
       }).formattedItemList().should.equal("3 documents plus Flying machine postage");
     });
 
     it("raises an error if no postage option set", function(){
       (function(){
-        calculator.calculate({ 'document_count': 1});
+        calculator.calculate({ 'dc': 1});
       }).should.throw("Invalid postage option");
     });
 
     it("raises an error if the postage option doesn't exist", function(){
       (function(){
-        calculator.calculate({ 'document_count': 1, 'postage_option': 'mailman'});
+        calculator.calculate({ 'dc': 1, 'po': 'mailman'});
       }).should.throw("Invalid postage option");
     });
 
     it("raises an error if document count is zero", function(){
       (function(){
-        calculator.calculate({ 'document_count': 0, 'postage_option': 'flying-machine'});
+        calculator.calculate({ 'dc': 0, 'po': 'flying-machine'});
       }).should.throw("Invalid document count");
     });
   });
@@ -244,11 +244,11 @@ describe("TransactionCalculator", function(){
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the document cost", function(){
-      calculator.calculate({'document_count': 3}).totalCost.should.equal(60);
+      calculator.calculate({'dc': 3}).totalCost.should.equal(60);
     });
 
     it("builds an item list which doesn't include postage", function(){
-      calculator.calculate({'document_count': 3}).formattedItemList().should.equal("3 documents");
+      calculator.calculate({'dc': 3}).formattedItemList().should.equal("3 documents");
     });
   });
 });
