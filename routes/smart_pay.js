@@ -176,7 +176,7 @@ module.exports = {
 				var collection = db.collection(config.dbCollection);
 				var emailSubject = '';
 				var slug = '';
-				var value = '';
+				var value = body.amount.value / 100;
 				var currency = '';
 				var emailTemplate = '';
 				var emailType = '';
@@ -204,7 +204,6 @@ module.exports = {
 						emailTemplate = 'generic' + '-' + emailType;
 						emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
 						shopperEmail = body.additionalData.shopperEmail;
-						value = body.amount.value / 100;
 						currency = body.amount.currency;
 						collection = db.collection(config.emailCollection);
 						collection.findOne({
@@ -216,12 +215,12 @@ module.exports = {
 							var fcoOfficeEmailAddress = document.emailAddress;
 							dataDecodedJson = JSON.parse('{"e":"' + fcoOfficeEmailAddress + '","pa":"' + value + '"}');
 							console.log('Sending email to ' + fcoOfficeEmailAddress);
-							transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
+							transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
 						});
 						if (typeof shopperEmail !== 'undefined') {
 							dataDecodedJson = JSON.parse('{"e":"' + shopperEmail + '","pa":"' + value + '"}');
 							console.log('Sending email to customer');
-							transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
+							transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
 						}
 					} else {
 						emailType = 'authorisation';
@@ -255,7 +254,7 @@ module.exports = {
 									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
 									emailSubject = 'Order for ' + slug + ' from the Foreign Office';
 									console.log('Sending email to customer');
-									transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
 								});
 							}
 						});
@@ -294,7 +293,7 @@ module.exports = {
 									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
 									emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
 									console.log('Sending email to customer');
-									transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
 								});
 							}
 						});
@@ -333,7 +332,7 @@ module.exports = {
 									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
 									emailSubject = 'Refund for ' + slug + ' from the Foreign Office';
 									console.log('Sending email to customer');
-									transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
 								});
 							}
 						});
@@ -372,7 +371,7 @@ module.exports = {
 									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
 									emailSubject = 'Cancellation for ' + slug + ' from the Foreign Office';
 									console.log('Sending email to customer');
-									transactionService.sendEmail(merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
 								});
 							}
 						});
