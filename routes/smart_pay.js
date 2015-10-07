@@ -249,7 +249,6 @@ module.exports = {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
 								var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-								lastFourDigitsOfCard = document.binRange;
 								transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
 									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
 									emailSubject = 'Order for ' + slug + ' from the Foreign Office';
