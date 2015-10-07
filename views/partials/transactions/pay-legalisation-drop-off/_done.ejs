@@ -8,7 +8,6 @@
 		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
 		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
 		<p>Service: <%= premiumService %></p>
-		<p>Number of items: <%= merchantReturnDataJson.dc %></p>
 		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
 		<p>Card type: <%= extractedParameters.paymentMethod %></p>
 		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%></p>
