@@ -11,12 +11,15 @@
 		<p>Service: <%= transaction.slug %></p>
 		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
 		<p>Card type: <%= extractedParameters.paymentMethod %></p>
+		<% if (merchantReturnDataJson.po == "prepaid"){ %>
+		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%> without courier delivery</p>
+		<% } else { -%>
 		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%> including <%= capitalise(merchantReturnDataJson.po) %> postage</p>
+		<% } -%>
 	</div>
 </div>
 
 <p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
-<p>When we have confirmed we can provide the service we will take the payment and you will receive a receipt via email.</p>
 
 <h2>What to do next</h2>
 
@@ -42,7 +45,7 @@
 <div class="application-notice help-notice"><p>You must post your application and documents - you can't go to the legalisation office in person.</p></div>
 
 
-<h2>If you’re abroad or using a courier</h2>
+<h2>If you're abroad or using a courier</h2>
 
 <p>Send your application to the following address if you’re abroad or using a courier service in the UK:</p>
 
