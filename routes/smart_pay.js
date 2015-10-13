@@ -286,14 +286,16 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-								lastFourDigitsOfCard = document.binRange;
-								transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-									emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
-									console.log('Sending email to customer');
-									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-								});
+								if (config.accounts[this.transaction.account].sendAllEmails) {
+									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
+									lastFourDigitsOfCard = document.binRange;
+									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
+										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
+										emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
+										console.log('Sending email to customer');
+										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									});
+								}
 							}
 						});
 					}
@@ -325,14 +327,16 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-								lastFourDigitsOfCard = document.binRange;
-								transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-									emailSubject = 'Refund for ' + slug + ' from the Foreign Office';
-									console.log('Sending email to customer');
-									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-								});
+								if (config.accounts[this.transaction.account].sendAllEmails) {
+									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
+									lastFourDigitsOfCard = document.binRange;
+									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
+										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
+										emailSubject = 'Refund for ' + slug + ' from the Foreign Office';
+										console.log('Sending email to customer');
+										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									});
+								}
 							}
 						});
 					}
@@ -364,14 +368,16 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-								lastFourDigitsOfCard = document.binRange;
-								transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-									emailSubject = 'Cancellation for ' + slug + ' from the Foreign Office';
-									console.log('Sending email to customer');
-									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-								});
+								if (config.accounts[this.transaction.account].sendAllEmails) {
+									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
+									lastFourDigitsOfCard = document.binRange;
+									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
+										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
+										emailSubject = 'Cancellation for ' + slug + ' from the Foreign Office';
+										console.log('Sending email to customer');
+										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
+									});
+								}
 							}
 						});
 					}
