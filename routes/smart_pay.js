@@ -176,6 +176,7 @@ module.exports = {
 				var collection = db.collection(config.dbCollection);
 				var emailSubject = '';
 				var slug = '';
+				var account = '';
 				var value = body.amount.value / 100;
 				var currency = '';
 				var emailTemplate = '';
@@ -183,14 +184,19 @@ module.exports = {
 				var dataDecodedJson = '';
 				if (transactionSlug[0] === 'PAYFOREIGNMARRIAGECERTIFICATES') {
 					slug = 'pay-foreign-marriage-certificates';
+					account = 'birth-death-marriage';
 				} else if (transactionSlug[0] === 'PAYLEGALISATIONPREMIUMSERVICE') {
 					slug = 'pay-legalisation-premium-service';
+					account = 'legalisation-drop-off';
 				} else if (transactionSlug[0] === 'PAYLEGALISATIONPOST') {
 					slug = 'pay-legalisation-post';
+					account = 'legalisation-post';
 				} else if (transactionSlug[0] === 'PAYREGISTERBIRTHABROAD') {
 					slug = 'pay-register-birth-abroad';
+					account = 'birth-death-marriage';
 				} else if (transactionSlug[0] === 'PAYREGISTERDEATHABROAD') {
 					slug = 'pay-register-death-abroad';
+					account = 'birth-death-marriage';
 				} else {
 					slug = transactionSlug[0];
 				}
@@ -286,7 +292,7 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								if (config.accounts[this.transaction.account].sendAllEmails) {
+								if (config.accounts[account].sendAllEmails) {
 									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
 									lastFourDigitsOfCard = document.binRange;
 									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
@@ -327,7 +333,7 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								if (config.accounts[this.transaction.account].sendAllEmails) {
+								if (config.accounts[account].sendAllEmails) {
 									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
 									lastFourDigitsOfCard = document.binRange;
 									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
@@ -368,7 +374,7 @@ module.exports = {
 							if (document === undefined || document === null) {
 								console.log('Nothing returned from database for ' + merchantReference);
 							} else {
-								if (config.accounts[this.transaction.account].sendAllEmails) {
+								if (config.accounts[account].sendAllEmails) {
 									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
 									lastFourDigitsOfCard = document.binRange;
 									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
