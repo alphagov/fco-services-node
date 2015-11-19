@@ -44,7 +44,7 @@ module.exports = {
 	 */
 	/**
  * @param req
- 
+
  */
 	confirm: function (req, res) {
 		try {
@@ -160,236 +160,58 @@ module.exports = {
 				res.write('[accepted]');
 				res.end();
 			} else {
-				var transactionService = new TransactionService(res.locals.transaction);
-				var date = transactionService.getDate();
-				var body = req.body.notificationItems[0].NotificationRequestItem;
-				var event = body.eventCode;
-				var success = body.success;
-				var merchantAccountCode = body.merchantAccountCode;
-				var merchantAccountType = capitalise(merchantAccountCode.slice(-4));
-				var merchantReference = body.merchantReference;
-				var paymentMethod = body.paymentMethod;
-				var pspReference = body.pspReference;
-				var transactionSlug = merchantReference.split('-');
-				var lastFourDigitsOfCard = '';
-				var shopperEmail = '';
-				var collection = db.collection(config.dbCollection);
-				var emailSubject = '';
-				var slug = '';
-				var account = '';
-				var value = body.amount.value / 100;
-				var currency = '';
-				var emailTemplate = '';
-				var emailType = '';
-				var dataDecodedJson = '';
-				if (transactionSlug[0] === 'PAYFOREIGNMARRIAGECERTIFICATES') {
-					slug = 'pay-foreign-marriage-certificates';
-					account = 'birth-death-marriage';
-				} else if (transactionSlug[0] === 'PAYLEGALISATIONPREMIUMSERVICE') {
-					slug = 'pay-legalisation-premium-service';
-					account = 'legalisation-drop-off';
-				} else if (transactionSlug[0] === 'PAYLEGALISATIONPOST') {
-					slug = 'pay-legalisation-post';
-					account = 'legalisation-post';
-				} else if (transactionSlug[0] === 'PAYREGISTERBIRTHABROAD') {
-					slug = 'pay-register-birth-abroad';
-					account = 'birth-death-marriage';
-				} else if (transactionSlug[0] === 'PAYREGISTERDEATHABROAD') {
-					slug = 'pay-register-death-abroad';
-					account = 'birth-death-marriage';
-				} else {
-					slug = transactionSlug[0];
-				}
-				console.log('Processing a new notification request for ' + merchantReference);
-				console.log(merchantReference + ' is of type ' + event + ' for service ' + slug);
-				if (event === 'AUTHORISATION' && success === 'true' && slug !== '') {
-					lastFourDigitsOfCard = body.additionalData.cardSummary;
+				var transactionService = new TransactionService(res.locals.transaction),
+					body = req.body.notificationItems[0].NotificationRequestItem,
+					collection = db.collection(config.dbCollection),
+					event = body.eventCode,
+					success = body.success,
+					merchantAccountCode = body.merchantAccountCode,
+					merchantAccountType = capitalise(merchantAccountCode.slice(-4)),
+					account = '';
+				var emailContents = {
+					value: body.amount.value / 100,
+					merchantReference: body.merchantReference,
+					paymentMethod: body.paymentMethod,
+					dataDecodedJson: '',
+					emailTemplate: '',
+					date: transactionService.getDate(),
+					emailSubject: '',
+					lastFourDigitsOfCard: '',
+					emailType: '',
+					pspReference: body.pspReference,
+					currency: '',
+					slug: ''
+				};
+				var transactionSlug = emailContents.merchantReference.split('-');
+				var serviceAndAccounts = transactionService.getServiceFromPaymentReference(transactionSlug[0]);
+				emailContents.slug = serviceAndAccounts[0];
+				account = serviceAndAccounts[1];
+				console.log('Processing a new notification request for ' + emailContents.merchantReference);
+				console.log(emailContents.merchantReference + ' is of type ' + event + ' for service ' + emailContents.slug);
+				if (event === 'AUTHORISATION' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType === 'MOTO') {
-						console.log(merchantReference + ' is a MOTO payment (over the counter) and has been processed by ' + merchantAccountCode);
-						emailType = 'capture';
-						emailTemplate = 'generic' + '-' + emailType;
-						emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
-						shopperEmail = body.additionalData.shopperEmail;
-						currency = body.amount.currency;
-						collection = db.collection(config.emailCollection);
-						collection.findOne({
-							'_id': merchantAccountCode
-						}, function (err, document) {
-							if (err) {
-								return console.dir(err);
-							}
-							var fcoOfficeEmailAddress = document.emailAddress;
-							dataDecodedJson = JSON.parse('{"e":"' + fcoOfficeEmailAddress + '","pa":"' + value + '"}');
-							console.log('Sending email to ' + fcoOfficeEmailAddress);
-							transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
-						});
-						if (typeof shopperEmail !== 'undefined') {
-							dataDecodedJson = JSON.parse('{"e":"' + shopperEmail + '","pa":"' + value + '"}');
-							console.log('Sending email to customer');
-							transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference, currency, slug);
-						}
+						transactionService.processMOTOPayment(emailContents, body, merchantAccountCode);
 					} else {
-						emailType = 'authorisation';
-						emailTemplate = slug + '-' + emailType;
-						collection.update({
-							'_id': merchantReference
-						}, {
-							$set: {
-								'authorised': 1,
-								'binRange': lastFourDigitsOfCard
-							}
-						}, {
-							w: 1
-						}, function (err) {
-							if (err) {
-								return console.dir(err);
-							}
-						});
-						collection.findOne({
-							'_id': merchantReference
-						}, function (err, document) {
-							if (err) {
-								return console.dir(err);
-							}
-							if (document === undefined || document === null) {
-								console.log('Nothing returned from database for ' + merchantReference);
-							} else {
-								var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-								transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-									dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-									emailSubject = 'Order for ' + slug + ' from the Foreign Office';
-									console.log('Sending email to customer');
-									transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-								});
-							}
-						});
+						transactionService.processAuthorisationPayment(emailContents, body, merchantAccountCode, collection);
 					}
 				}
-				if (event === 'CAPTURE' && success === 'true' && slug !== '') {
+				if (event === 'CAPTURE' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType !== 'MOTO') {
-						console.log('Processing CAPTURE notification for ' + merchantReference);
-						emailType = 'capture';
-						emailTemplate = slug + '-' + emailType;
-						collection.update({
-							'_id': merchantReference
-						}, {
-							$set: {
-								'captured': 1
-							}
-						}, {
-							w: 1
-						}, function (err) {
-							if (err) {
-								return console.dir(err);
-							}
-						});
-						collection.findOne({
-							'_id': merchantReference
-						}, function (err, document) {
-							if (err) {
-								return console.dir(err);
-							}
-							if (document === undefined || document === null) {
-								console.log('Nothing returned from database for ' + merchantReference);
-							} else {
-								if (config.accounts[account].sendAllEmails) {
-									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-									lastFourDigitsOfCard = document.binRange;
-									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-										emailSubject = 'Receipt for ' + slug + ' from the Foreign Office';
-										console.log('Sending email to customer');
-										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-									});
-								}
-							}
-						});
+						transactionService.processCapturePayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
-				if (event === 'REFUND' && success === 'true' && slug !== '') {
-					console.log('Processing REFUND notification for ' + merchantReference);
+				if (event === 'REFUND' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType !== 'MOTO') {
-						emailType = 'refund';
-						emailTemplate = slug + '-' + emailType;
-						collection.update({
-							'_id': merchantReference
-						}, {
-							$set: {
-								'refunded': 1
-							}
-						}, {
-							w: 1
-						}, function (err) {
-							if (err) {
-								return console.dir(err);
-							}
-						});
-						collection.findOne({
-							'_id': merchantReference
-						}, function (err, document) {
-							if (err) {
-								return console.dir(err);
-							}
-							if (document === undefined || document === null) {
-								console.log('Nothing returned from database for ' + merchantReference);
-							} else {
-								if (config.accounts[account].sendAllEmails) {
-									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-									lastFourDigitsOfCard = document.binRange;
-									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-										emailSubject = 'Refund for ' + slug + ' from the Foreign Office';
-										console.log('Sending email to customer');
-										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-									});
-								}
-							}
-						});
+						transactionService.processRefundPayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
-				if (event === 'CANCELLATION' && success === 'true' && slug !== '') {
+				if (event === 'CANCELLATION' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType !== 'MOTO') {
-						console.log('Processing CANCELLATION notification for ' + merchantReference);
-						emailType = 'cancellation';
-						emailTemplate = slug + '-' + emailType;
-						collection.update({
-							'_id': merchantReference
-						}, {
-							$set: {
-								'cancelled': 1
-							}
-						}, {
-							w: 1
-						}, function (err) {
-							if (err) {
-								return console.dir(err);
-							}
-						});
-						collection.findOne({
-							'_id': merchantReference
-						}, function (err, document) {
-							if (err) {
-								return console.dir(err);
-							}
-							if (document === undefined || document === null) {
-								console.log('Nothing returned from database for ' + merchantReference);
-							} else {
-								if (config.accounts[account].sendAllEmails) {
-									var decryptedMerchantReturnData = transactionService.decrypt(document.merchantReturnData);
-									lastFourDigitsOfCard = document.binRange;
-									transactionService.inflateAndDecode(decryptedMerchantReturnData, function (merchantReturnDataDecoded) {
-										dataDecodedJson = JSON.parse(merchantReturnDataDecoded);
-										emailSubject = 'Cancellation for ' + slug + ' from the Foreign Office';
-										console.log('Sending email to customer');
-										transactionService.sendEmail(value, merchantReference, paymentMethod, dataDecodedJson, emailTemplate, date, emailSubject, lastFourDigitsOfCard, emailType, pspReference);
-									});
-								}
-							}
-						});
+						transactionService.processCancellationPayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
 				if (success === 'false') {
-					console.log('Notification has not succeeded for ' + merchantReference);
+					console.log('Notification has not succeeded for ' + emailContents.merchantReference);
 				}
 				/*Accept payment anyway even if there was an issue*/
 				res.write('[accepted]');
