@@ -5,6 +5,7 @@ exports.config = {
 	dbConnectionString: process.env['db_connection_string'],
 	dbCollection: process.env['db_collection'],
 	emailCollection: process.env['db_email_collection'],
+	etdCollection: process.env['etd_email_collection'],
 	basicAuthUsername: process.env['basic_Auth_Username'],
 	basicAuthPassword: process.env['basic_Auth_Password'],
 	emailUsername: process.env['email_username'],
