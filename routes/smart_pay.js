@@ -180,7 +180,8 @@ module.exports = {
 					emailType: '',
 					pspReference: body.pspReference,
 					currency: '',
-					slug: ''
+					slug: '',
+					fcoOfficeEmailAddress: ''
 				};
 				var transactionSlug = emailContents.merchantReference.split('-');
 				var serviceAndAccounts = transactionService.getServiceFromPaymentReference(transactionSlug[0]);
