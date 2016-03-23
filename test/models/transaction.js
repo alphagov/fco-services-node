@@ -10,7 +10,7 @@ describe("Transaction", function(){
       var trans = Transaction.find('pay-register-death-abroad');
       trans.slug.should.equal('pay-register-death-abroad');
       trans.title.should.equal('Payment to register a death abroad');
-      trans.document_cost.should.equal(65);
+      trans.document_cost.should.equal(50);
       trans.postage_options.length.should.equal(3);
       trans.postage_options[0].key.should.equal('uk');
       trans.postage_options[0].cost.should.equal(5.5);

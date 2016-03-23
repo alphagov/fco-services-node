@@ -37,7 +37,7 @@ describe("Pay to register a birth abroad", function(){
           //should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 0 certificates plus UK address or British Forces Post Office postage is £215.50.');
+            'The cost for 2 registrations and 0 certificates plus UK address or British Forces Post Office postage is £305.50.');
 
           browser.query("form.smartpay-submit").action.should.match(/https:\/\/test\.barclaycardsmartpay\.com/);
           browser.query("form.smartpay-submit").method.should.equal("post");
@@ -89,7 +89,7 @@ describe("Pay to register a birth abroad", function(){
           //should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia and Herzegovina, Georgia, Liechtenstein, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey and Ukraine) postage is £354.50.');
+            'The cost for 2 registrations and 2 certificates plus Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia and Herzegovina, Georgia, Liechtenstein, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey and Ukraine) postage is £414.50.');
 
           browser.query("form.smartpay-submit").action.should.match(/https:\/\/test\.barclaycardsmartpay\.com/);
           browser.query("form.smartpay-submit").method.should.equal("post");
