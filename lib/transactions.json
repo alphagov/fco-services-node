@@ -5,9 +5,9 @@
     "test_tracking_site_id":14,
     "registration_type":"death",
     "registration":true,
-    "document_cost":65,
+    "document_cost":50,
     "allow_zero_document_count":true,
-    "registration_cost":105,
+    "registration_cost":150,
     "postage_options": [
       { "key":"uk",
         "cost":5.5,
@@ -70,9 +70,9 @@
     "test_tracking_site_id":13,
     "registration_type":"birth",
     "registration":true,
-    "document_cost":65,
+    "document_cost":50,
     "allow_zero_document_count":true,
-    "registration_cost":105,
+    "registration_cost":150,
     "postage_options": [
       {
         "key":"uk",

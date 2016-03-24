@@ -41,7 +41,7 @@ describe("Pay to register a death abroad", function(){
           //should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus Rest of the world postage is £365.');
+            'The cost for 2 registrations and 2 certificates plus Rest of the world postage is £425.');
 
           done();
         });
@@ -67,7 +67,7 @@ describe("Pay to register a death abroad", function(){
           //should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus UK address or British Forces Post Office postage is £345.50.');
+            'The cost for 2 registrations and 2 certificates plus UK address or British Forces Post Office postage is £405.50.');
 
           browser.query("form.smartpay-submit").action.should.match(/https:\/\/test\.barclaycardsmartpay\.com/);
           browser.query("form.smartpay-submit").method.should.equal("post");
