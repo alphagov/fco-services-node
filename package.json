@@ -31,7 +31,8 @@
 	"nodemailer-smtp-transport": "1.0.2",
 	"email-templates": "1.2.0",
 	"mongodb": "1.4.34",
-	"basic-auth": "1.0.0"
+	"basic-auth": "1.0.0",
+    "console-stamp": "0.2.2"
   },
     	
   "devDependencies": {
