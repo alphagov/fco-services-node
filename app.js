@@ -12,6 +12,10 @@ var express = require('express'),
 	MongoClient = require('mongodb').MongoClient,
 	config = require('./config/smart_pay.js').config;
 
+
+//add timestamps in front of log messages in UTC format
+require('console-stamp')(console, '[HH:MM:ss.l]');
+
 var app = express();
 
 app.enable('trust proxy');

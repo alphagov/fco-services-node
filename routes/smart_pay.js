@@ -191,23 +191,28 @@ module.exports = {
 				console.log(emailContents.merchantReference + ' is of type ' + event + ' for service ' + emailContents.slug);
 				if (event === 'AUTHORISATION' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType === 'MOTO') {
+						console.log('Begin MOTO processing');
 						transactionService.processMOTOPayment(emailContents, body, merchantAccountCode);
 					} else {
+						console.log('Begin AUTHORISATION processing');
 						transactionService.processAuthorisationPayment(emailContents, body, merchantAccountCode, collection);
 					}
 				}
 				if (event === 'CAPTURE' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType !== 'MOTO') {
+						console.log('Begin CAPTURE processing');
 						transactionService.processCapturePayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
 				if (event === 'REFUND' && success === 'true' && emailContents.slug !== '') {
+					console.log('Begin REFUND processing');
 					if (merchantAccountType !== 'MOTO') {
 						transactionService.processRefundPayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
 				if (event === 'CANCELLATION' && success === 'true' && emailContents.slug !== '') {
 					if (merchantAccountType !== 'MOTO') {
+						console.log('Begin CANCELLATION processing');
 						transactionService.processCancellationPayment(emailContents, body, merchantAccountCode, collection, account);
 					}
 				}
