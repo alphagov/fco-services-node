@@ -67,5 +67,19 @@
   border-left-style: solid;
   background-color: #fef7f7;
   list-style-type: none;
-  } 
+  }
+
+  .panel-border-wide {
+    border-left-width: 10px;
+  }
+  .panel {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    border-left-style: solid;
+    border-color: #bfc1c3;
+    padding: 0.7894736842em;
+    margin-bottom: 0.7894736842em;
+  }
 }
