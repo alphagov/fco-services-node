@@ -13,7 +13,7 @@ var Transaction = function (opts) {
   });
 };
 
-Transaction.PARAMPLUS_KEYS = ['dc', 'p', 'po', 'rc'];
+Transaction.PARAMPLUS_KEYS = ['dc', 'p', 'po', 'rc', 'cost'];
 
 Transaction.email_address = ['email_address'];
 

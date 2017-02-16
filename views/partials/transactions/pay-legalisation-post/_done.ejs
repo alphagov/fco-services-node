@@ -1,60 +1,38 @@
-
-<h2>Authorisation for payment taken</h2>
+<div class="govuk-box-highlight">
+    <h1 style="font-weight: 700; font-size: 36px;">Payment complete</h1>
+    <p>Your FCO payment reference number is</p>
+    <h2><%= extractedParameters.pspReference %></h2>
+</div>
 
 <p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
 
-<div class ="content-block">
-	<div class ="application-notice info-notice">
-		<p>Date: <%= date %></p>
-		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
-		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
-		<p>Service: <%= transaction.slug %></p>
-		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
-		<p>Card type: <%= extractedParameters.paymentMethod %></p>
-		<% if (merchantReturnDataJson.po == "prepaid"){ %>
-		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%> without courier delivery</p>
-		<% } else { -%>
-		<p>You have paid &pound;<%= formatMoney(merchantReturnDataJson.pa) %> for <%= pluralise("documents", documentCount(merchantReturnDataJson))%> including <%= capitalise(merchantReturnDataJson.po) %> postage</p>
-		<% } -%>
-	</div>
-</div>
+    <ul>
+        <li>
+        Amount: &pound;<%= formatMoney(merchantReturnDataJson.cost) %>
+        </li>
+        <li>
+        Card Type: <%= extractedParameters.paymentMethod %>
+        </li>
+        <li>
+        Date: <%= date %>
+        </li>
+    </ul>
+
+
 
 <p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
 
 <h2>What to do next</h2>
 
-<p>Send the following items to the Legalisation Office:</p>
-
+<p>
+    Email the Legalisation Office at EpaymentEnquiries@fco.gov.uk with the following information:
+</p>
 <ul>
-  <li>the documents you want legalised</li>
-  <li>a signed <a href="https://www.gov.uk/government/publications/legalisation-application-form">Legalisation application form</a> (with your payment reference number added)</li>
-  <li>a print out of this payment confirmation page or your emailed confirmation</li>
-  <% if (merchantReturnDataJson.po == "prepaid"){ %>
-  <li>an A4-sized envelope (prepaid if using Royal Mail) so your documents can be safely returned</li>
-  <% } -%>
+    <li>
+        your FCO payment reference number <%= extractedParameters.pspReference %>
+    </li>
+    <li>
+        your existing application reference - this will start with the letter 'A' and be followed by a combination of letters and numbers eg A-C-16-1212-8274-064C
+    </li>
 </ul>
-
-<div class="address">
-  <p>Legalisation Office</p>
-  <p>Foreign &amp; Commonwealth Office</p>
-  <p>PO Box 6255</p>
-  <p>Milton Keynes</p>
-  <p>MK10 1XX</p>
-</div>
-
-<div class="application-notice help-notice"><p>You must post your application and documents - you can't go to the legalisation office in person.</p></div>
-
-
-<h2>If you're abroad or using a courier</h2>
-
-<p>Send your application to the following address if you’re abroad or using a courier service in the UK:</p>
-
-<div class="address">
-  <p>The Legalisation Office</p>
-  <p>Foreign &amp; Commonwealth Office</p>
-  <p>Hanslope Park</p>
-  <p>Hanslope</p>
-  <p>Milton Keynes</p>
-  <p>MK19 7BH</p>
-</div>
 

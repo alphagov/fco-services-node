@@ -74,6 +74,7 @@ app.get('/', routes.smart_pay.middleware.findTransaction, routes.smart_pay.rootR
 
 // EPDQ Transaction Routes.
 app.get('/start', routes.smart_pay.middlewares, routes.smart_pay.start);
+app.get('/additional-payments', routes.smart_pay.middlewares, routes.smart_pay.additionalpayments);
 app.post('/confirm', routes.smart_pay.middleware.findTransaction, routes.smart_pay.confirm);
 app.get('/confirm', function (req, res) { res.redirect('/start'); });
 app.get('/done', routes.smart_pay.middleware.findTransaction, routes.smart_pay.done);

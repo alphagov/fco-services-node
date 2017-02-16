@@ -29,16 +29,33 @@ module.exports = {
 		res.redirect(req.url + 'start');
 	},
 	/**
-	 * GET /start
-	 */
+     * GET /start
+     */
 	start: function (req, res) {
-		res.render('start', {
-			country: (req.query['country'] || ''),
-			postalCountry: (req.query['postal_country'] || ''),
-			transaction: res.locals.transaction,
-			journeyDescription: journeyDescription(res, 'start')
-		});
+		if (res.locals.transaction.slug === 'pay-legalisation-post'){
+			console.log('Redirecting postal service to new gov service');
+			res.redirect('https://www.gov.uk/get-document-legalised');
+		}else {
+            res.render('start', {
+                country: (req.query['country'] || ''),
+                postalCountry: (req.query['postal_country'] || ''),
+                transaction: res.locals.transaction,
+                journeyDescription: journeyDescription(res, 'start')
+            });
+        }
 	},
+
+    /**
+     * GET /additional-payments
+     */
+    additionalpayments: function (req, res) {
+        res.render('start', {
+            country: (req.query['country'] || ''),
+            postalCountry: (req.query['postal_country'] || ''),
+            transaction: res.locals.transaction,
+            journeyDescription: journeyDescription(res, 'start')
+        });
+    },
 	/**
 	 * POST /confirm
 	 */

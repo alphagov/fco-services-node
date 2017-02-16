@@ -30,31 +30,9 @@
     "account":"legalisation-post",
 	"tracking_site_id":5,
     "test_tracking_site_id":12,
-    "postage_options": [
-      {
-        "key":"prepaid",
-        "cost":0,
-        "label":"Prepaid envelope that you provide (to the UK only)"
-      },
-      {
-        "key":"uk",
-        "cost":5.5,
-        "label":"Tracked courier service to the UK or British Forces Post Office including Isle of Man and Channel Islands"
-      },
-      {
-        "key":"europe",
-        "cost":14.5,
-        "label":"Tracked courier service to Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia & Herzegovina, Georgia, Liechtenstein, Kazakhstan, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey, Ukraine)"
-      },
-      {
-        "key":"rest-of-world",
-        "cost":25,
-        "label":"Tracked courier service to the rest of the world"
-      }
-    ],
     "document_cost":30,
     "allow_zero_document_count":true,
-    "title":"Pay to legalise documents by post"
+    "title":"Make an additional payment for legalisation"
   },
   "pay-legalisation-drop-off":{
     "account":"legalisation-drop-off",
