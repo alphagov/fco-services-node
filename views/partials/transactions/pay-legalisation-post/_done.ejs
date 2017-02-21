@@ -1,33 +1,33 @@
 <div class="govuk-box-highlight">
-    <h1 style="font-weight: 700; font-size: 36px;">Payment complete</h1>
-    <p>Your FCO payment reference number is</p>
-    <h2><%= extractedParameters.pspReference %></h2>
+    <h1 style="font-weight: 700; font-size: 36px; margin: 0px;">Payment complete</h1>
+    <p style="margin: 0px;">Your FCO payment reference number is</p>
+    <h2 style="margin: 0px;"><%= extractedParameters.pspReference %></h2>
 </div>
 
-<p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
+<p>Thank you for your order from the Foreign & Commonwealth Office. We've taken pre-authorisation for the following:</p>
 
-    <ul>
+    <ul style="padding: 0 20px;">
         <li>
-        Amount: &pound;<%= formatMoney(merchantReturnDataJson.cost) %>
+        amount: &pound;<%= formatMoney(merchantReturnDataJson.cost) %>
         </li>
         <li>
-        Card Type: <%= extractedParameters.paymentMethod %>
+        card type: <%= extractedParameters.paymentMethod %>
         </li>
         <li>
-        Date: <%= date %>
+        date: <%= date %>
         </li>
     </ul>
 
 
 
-<p>We have emailed you a confirmation. If you don't receive the email please check your spam folder.</p>
+<p>We've emailed a confirmation to <%= merchantReturnDataJson.e%>. If you don't receive the email please check your spam folder.</p>
 
 <h2>What to do next</h2>
 
 <p>
-    Email the Legalisation Office at EpaymentEnquiries@fco.gov.uk with the following information:
+    Email the Legalisation Office at <a href="mailto:EpaymentEnquiries@fco.gov.uk">EpaymentEnquiries@fco.gov.uk</a> with the following information:
 </p>
-<ul>
+<ul style="padding: 0 20px;">
     <li>
         your FCO payment reference number <%= extractedParameters.pspReference %>
     </li>

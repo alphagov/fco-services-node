@@ -32,7 +32,9 @@
     "test_tracking_site_id":12,
     "document_cost":30,
     "allow_zero_document_count":true,
-    "title":"Make an additional payment for legalisation"
+    "title":"Make an additional payment for legalisation",
+    "titleConfirm":"Check your payment amount",
+    "titleDone":""
   },
   "pay-legalisation-drop-off":{
     "account":"legalisation-drop-off",

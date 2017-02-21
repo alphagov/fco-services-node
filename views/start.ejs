@@ -17,9 +17,15 @@
 
           <%- partial("partials/transactions/" + transaction.slug + "/intro") %>
 
+          <%if (transaction.slug === 'pay-legalisation-post'){%>
+          <p id="get-started" class="get-started-post group">
+            <button class="button" type="submit" >Continue</button>
+          </p>
+          <%}else{%>
           <p id="get-started" class="get-started group">
             <button class="button" type="submit" >Calculate total</button>
           </p>
+            <%}%>
         </form>
 		<script>
 			$("#letsBegin").validate({

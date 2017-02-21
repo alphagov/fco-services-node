@@ -1,6 +1,10 @@
 var SmartPay = require('smartpay'),
 	auth = require('basic-auth'),
+    moment = require('moment'),
 	TransactionService = require('./../lib/transaction_service');
+
+moment.locale('en-gb');
+
 var journeyDescription = function (res, step) {
 	return res.locals.transaction.slug + ':' + step;
 };
@@ -132,7 +136,6 @@ module.exports = {
 				var extractedParameters = transactionService.extractParameterList(req, responseParameters, function (merchantReturnDataDecoded) {
 					extractedParameters.merchantReturnData = merchantReturnDataDecoded;
 					var merchantReturnDataJson = JSON.parse(extractedParameters.merchantReturnData);
-					var date = transactionService.getDate();
 					if (extractedParameters.authResult !== 'AUTHORISED') {
 						res.render('payment_error', {
 							journeyDescription: journeyDescription(res, 'payment_error')
@@ -149,7 +152,7 @@ module.exports = {
 							merchantReturnDataJson: merchantReturnDataJson,
 							transaction: res.locals.transaction,
 							premiumService: premiumService,
-							date: date,
+							date: moment().format('LL'),
 							journeyDescription: journeyDescription(res, 'done')
 						});
 					}
@@ -191,7 +194,7 @@ module.exports = {
 					paymentMethod: body.paymentMethod,
 					dataDecodedJson: '',
 					emailTemplate: '',
-					date: transactionService.getDate(),
+					date: moment().format('LL'),
 					emailSubject: '',
 					lastFourDigitsOfCard: '',
 					emailType: '',
