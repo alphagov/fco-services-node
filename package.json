@@ -11,8 +11,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "npm run-script lint && mocha -R spec test/",
-    "lint": "./node_modules/jshint/bin/jshint app.js config/*.js helpers/*.js lib/*.js models/*.js routes/*.js"
+    "test": "mocha -R spec test/"
   },
   "dependencies": {
     "basic-auth": "1.0.0",
@@ -37,7 +36,6 @@
     "validator": "^6.2.1"
   },
   "devDependencies": {
-    "jshint": "2.4.3",
     "request": "2.33.0",
     "mocha": "1.17.1",
     "should": "3.1.2",

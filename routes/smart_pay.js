@@ -88,6 +88,7 @@ module.exports = {
 						'service': res.locals.transaction.slug,
 						'merchantReturnData': encryptedMerchantReturnData,
 						'binRange': 1234,
+						'pspReference': 0,
 						'authorised': 0,
 						'captured': 0,
 						'cancelled': 0,
