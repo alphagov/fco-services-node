@@ -36,8 +36,9 @@ module.exports = {
      * GET /start
      */
 	start: function (req, res) {
-		if (res.locals.transaction.slug === 'pay-legalisation-post'){
-			console.log('Redirecting postal service to new gov service');
+		if (res.locals.transaction.slug === 'pay-legalisation-post' ||
+			res.locals.transaction.slug === 'pay-legalisation-drop-off'){
+			console.log('Redirecting postal / premium service to new gov service');
 			res.redirect('https://www.gov.uk/get-document-legalised');
 		}else {
             res.render('start', {
