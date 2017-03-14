@@ -137,6 +137,7 @@ module.exports = {
 			if (smartPayResponse.verified()) {
 				var extractedParameters = transactionService.extractParameterList(req, responseParameters, function (merchantReturnDataDecoded) {
 					extractedParameters.merchantReturnData = merchantReturnDataDecoded;
+					extractedParameters.paymentMethod = transactionService.formatPaymentMethod(extractedParameters.paymentMethod);
 					var merchantReturnDataJson = JSON.parse(extractedParameters.merchantReturnData);
 					if (extractedParameters.authResult !== 'AUTHORISED') {
 						res.render('payment_error', {
@@ -193,7 +194,7 @@ module.exports = {
 				var emailContents = {
 					value: body.amount.value / 100,
 					merchantReference: body.merchantReference,
-					paymentMethod: body.paymentMethod,
+					paymentMethod: transactionService.formatPaymentMethod(body.paymentMethod),
 					dataDecodedJson: '',
 					emailTemplate: '',
 					date: moment().format('LL'),
