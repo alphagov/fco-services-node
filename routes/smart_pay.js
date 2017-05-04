@@ -1,6 +1,10 @@
 var SmartPay = require('smartpay'),
 	auth = require('basic-auth'),
+    moment = require('moment'),
 	TransactionService = require('./../lib/transaction_service');
+
+moment.locale('en-gb');
+
 var journeyDescription = function (res, step) {
 	return res.locals.transaction.slug + ':' + step;
 };
@@ -29,16 +33,34 @@ module.exports = {
 		res.redirect(req.url + 'start');
 	},
 	/**
-	 * GET /start
-	 */
+     * GET /start
+     */
 	start: function (req, res) {
-		res.render('start', {
-			country: (req.query['country'] || ''),
-			postalCountry: (req.query['postal_country'] || ''),
-			transaction: res.locals.transaction,
-			journeyDescription: journeyDescription(res, 'start')
-		});
+		if (res.locals.transaction.slug === 'pay-legalisation-post' ||
+			res.locals.transaction.slug === 'pay-legalisation-drop-off'){
+			console.log('Redirecting postal / premium service to new gov service');
+			res.redirect('https://www.gov.uk/get-document-legalised');
+		}else {
+            res.render('start', {
+                country: (req.query['country'] || ''),
+                postalCountry: (req.query['postal_country'] || ''),
+                transaction: res.locals.transaction,
+                journeyDescription: journeyDescription(res, 'start')
+            });
+        }
 	},
+
+    /**
+     * GET /additional-payments
+     */
+    additionalpayments: function (req, res) {
+        res.render('start', {
+            country: (req.query['country'] || ''),
+            postalCountry: (req.query['postal_country'] || ''),
+            transaction: res.locals.transaction,
+            journeyDescription: journeyDescription(res, 'start')
+        });
+    },
 	/**
 	 * POST /confirm
 	 */
@@ -67,6 +89,7 @@ module.exports = {
 						'service': res.locals.transaction.slug,
 						'merchantReturnData': encryptedMerchantReturnData,
 						'binRange': 1234,
+						'pspReference': 0,
 						'authorised': 0,
 						'captured': 0,
 						'cancelled': 0,
@@ -114,8 +137,8 @@ module.exports = {
 			if (smartPayResponse.verified()) {
 				var extractedParameters = transactionService.extractParameterList(req, responseParameters, function (merchantReturnDataDecoded) {
 					extractedParameters.merchantReturnData = merchantReturnDataDecoded;
+					extractedParameters.paymentMethod = transactionService.formatPaymentMethod(extractedParameters.paymentMethod);
 					var merchantReturnDataJson = JSON.parse(extractedParameters.merchantReturnData);
-					var date = transactionService.getDate();
 					if (extractedParameters.authResult !== 'AUTHORISED') {
 						res.render('payment_error', {
 							journeyDescription: journeyDescription(res, 'payment_error')
@@ -132,7 +155,7 @@ module.exports = {
 							merchantReturnDataJson: merchantReturnDataJson,
 							transaction: res.locals.transaction,
 							premiumService: premiumService,
-							date: date,
+							date: moment().format('LL'),
 							journeyDescription: journeyDescription(res, 'done')
 						});
 					}
@@ -171,10 +194,10 @@ module.exports = {
 				var emailContents = {
 					value: body.amount.value / 100,
 					merchantReference: body.merchantReference,
-					paymentMethod: body.paymentMethod,
+					paymentMethod: transactionService.formatPaymentMethod(body.paymentMethod),
 					dataDecodedJson: '',
 					emailTemplate: '',
-					date: transactionService.getDate(),
+					date: moment().format('LL'),
 					emailSubject: '',
 					lastFourDigitsOfCard: '',
 					emailType: '',

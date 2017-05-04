@@ -1,9 +1,13 @@
-<%- partial("partials/questions/document_count", { questionText: "How many documents do you want legalised?<br>Each document costs &pound;" + formatMoney(transaction['document_cost']) + ".", questionType: 'text' }) %>
-
-<%- partial("partials/questions/postage_options", { questionText: "How would you like your documents sent back to you?" }) %>
-
-<%- partial("partials/questions/email_address", { questionText: "Please enter your email address" }) %>
+<p>This page is for making additional payments for existing applications. For example, to pay for an extra document or to pay the correct amount of postage.</p>
 
 <div class="panel panel-border-wide">
-<p>If not used within 28 days your online payment will expire and no funds will be debited from your card or account</p>
+    <p>
+        To submit a new application use the <a href="https://www.gov.uk/get-document-legalised">legalisation online application service</a> instead.
+    </p>
 </div>
+
+
+<%- partial("partials/questions/document_count", { questionText: "<b>How much extra do you need to pay?</b><br /><span style='color:#6f777b;'>Enter the amount which you've been told to pay by the Legalisation Office</span>", questionType: 'cost' }) %>
+
+
+<%- partial("partials/questions/email_address", { questionText: "<b>What is your email address?</b><br /><span style='color:#6f777b;'>Enter your email so we can send you a payment confirmation</span>" }) %>

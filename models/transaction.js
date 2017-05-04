@@ -5,7 +5,7 @@ var Transaction = function (opts) {
   var _self = this,
       attrs = ['slug', 'title', 'document_cost', 'document_types',
                'postage_cost', 'postage_options', 'registration', 'registration_cost',
-               'account', 'allow_zero_document_count', 'tracking_site_id', 'test_tracking_site_id'];
+               'account', 'allow_zero_document_count', 'tracking_site_id', 'test_tracking_site_id', 'titleConfirm', 'titleDone'];
 
   this.config = config;
   attrs.forEach(function (attr) {
@@ -13,7 +13,7 @@ var Transaction = function (opts) {
   });
 };
 
-Transaction.PARAMPLUS_KEYS = ['dc', 'p', 'po', 'rc'];
+Transaction.PARAMPLUS_KEYS = ['dc', 'p', 'po', 'rc', 'cost'];
 
 Transaction.email_address = ['email_address'];
 

@@ -2,7 +2,11 @@
 
   <header class="page-header group">
     <div>
+        <%if (transaction.slug === 'pay-legalisation-post'){%>
+      <h1><%= transaction.titleConfirm %></h1>
+      <%}else{%>
       <h1><%= transaction.title %></h1>
+        <%}%>
     </div>
   </header>
   <div class="article-container group">
@@ -17,11 +21,21 @@
           <input type="hidden" name="<%= key %>" value="<%= ordered[key] %>" />
         <% } %>
 		<input type="hidden" name="merchantSig" value="<%= smartPayRequest.hmacSignature() %>" />
-		
-        <p id="get-started" class="get-started group">
-          <button class="button" type="submit">Pay</button>
-          <span class="destination"> on Barclaycard</span>
-        </p>
+
+            <%if (transaction.slug === 'pay-legalisation-post'){%>
+            <p id="get-started" class="get-started-post group">
+              <button class="button" type="submit">Pay now</button>
+              <span class="destination"> on Barclaycard</span>
+              <br />
+              <a href="/additional-payments">Cancel</a>
+            </p>
+          <%}else{%>
+            <p id="get-started" class="get-started group">
+              <button class="button" type="submit">Pay</button>
+              <span class="destination"> on Barclaycard</span>
+            </p>
+            <%}%>
+
       </div>
     </article>
   </div>

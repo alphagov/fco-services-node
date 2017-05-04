@@ -45,6 +45,15 @@
     }
   }
 
+  .get-started-post {
+    .destination {
+      display: block;
+      margin-top: .5em;
+      @include core-14;
+      color: $grey-1;
+    }
+  }
+
   .address {
     margin: 2.5em 0;
   }
@@ -82,4 +91,27 @@
     padding: 0.1em 0.78947em 0.1em 0.78947em;
     margin-bottom: 0.7894736842em;
   }
+
+  .govuk-box-highlight {
+    margin: 1em 0;
+    padding: 2em 0 2em;
+    color: #fff;
+    background: #28a197;
+    text-align: center;
+  }
+
+
+  .govuk-form-elements {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "nta", Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 4px;
+    background-color: #fff;
+    border: 2px solid #6f777b;
+    }
 }

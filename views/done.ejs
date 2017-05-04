@@ -3,7 +3,11 @@
 
   <header class="page-header group">
     <div>
+        <%if (transaction.slug === 'pay-legalisation-post'){%>
+      <h1><%= transaction.titleDone %></h1>
+        <%}else{%>
       <h1><%= transaction.title %></h1>
+        <%}%>
     </div>
   </header>
   <div class="article-container group">

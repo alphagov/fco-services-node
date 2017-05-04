@@ -11,6 +11,7 @@ exports.config = {
 	emailUsername: process.env['email_username'],
 	emailPassword: process.env['email_password'],
 	emailFromAddress: process.env['email_from_address'],
+	legalisationOfficeEmailAddress: process.env['legalisation_office_email_address'],
 	pspId: 'pspid',
 	testMode: (process.env['TEST_MODE'] !== 'false'),
 	notificationSlug: 'pay-legalisation-drop-off',

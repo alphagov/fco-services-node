@@ -187,13 +187,28 @@
   border-left: 10px #dee0e2 #dee0e2; }
 #content .contact {
   margin: 0.75em; }
-  
-.error-message {
+#content .error-message {
   margin: 0.4em -0.7em 0.4em -0.8em;
   padding: 0.5em 0.65em;
   border-left-color: #df3034;
   border-left-width: 3px;
   border-left-style: solid;
   background-color: #fef7f7;
-  list-style-type: none;
-} 
+  list-style-type: none; }
+#content .panel-border-wide {
+  border-left-width: 10px; }
+#content .panel {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  clear: both;
+  border-left-style: solid;
+  border-color: #bfc1c3;
+  padding: 0.1em 0.78947em 0.1em 0.78947em;
+  margin-bottom: 0.78947em; }
+#content .govuk-box-highlight {
+  margin: 1em 0;
+  padding: 2em 0 1em;
+  color: #fff;
+  background: #28a197;
+  text-align: center; }
