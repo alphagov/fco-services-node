@@ -78,7 +78,7 @@ describe("smart_pay routes", function () {
 				.end(function (err, res) {
 					should.not.exist(err);
 					res.headers['x-frame-options'].should.equal('DENY');
-					res.headers['strict-transport-security'].should.equal('max-age=31536; includeSubdomains');
+					res.headers['strict-transport-security'].should.equal('max-age=31536; includeSubDomains');
 					done();
 				});
 		});;

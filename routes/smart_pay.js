@@ -41,6 +41,7 @@ module.exports = {
 			console.log('Redirecting postal / premium service to new gov service');
 			res.redirect('https://www.gov.uk/get-document-legalised');
 		}else {
+            global.additionalpayments = false;
             res.render('start', {
                 country: (req.query['country'] || ''),
                 postalCountry: (req.query['postal_country'] || ''),
@@ -54,6 +55,7 @@ module.exports = {
      * GET /additional-payments
      */
     additionalpayments: function (req, res) {
+        global.additionalpayments = true;
         res.render('start', {
             country: (req.query['country'] || ''),
             postalCountry: (req.query['postal_country'] || ''),
