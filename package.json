@@ -32,7 +32,6 @@
     "numeral": "1.5.3",
     "pluralize": "0.0.7",
     "qs": "1.0.0",
-    "smart_pay_npm": "git+https://github.com/UKForeignOffice/smart_pay_npm.git",
     "validator": "^6.2.1"
   },
   "devDependencies": {

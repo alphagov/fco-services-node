@@ -1,5 +1,4 @@
-var SmartPay = require('smartpay'),
-	auth = require('basic-auth'),
+var auth = require('basic-auth'),
     moment = require('moment'),
 	TransactionService = require('./../lib/transaction_service');
 
@@ -80,10 +79,8 @@ module.exports = {
 					number = number + 1;
 					requestParameters.merchantReference = requestParameters.merchantReference + '-' + number;
 					requestParameters.merchantReturnData = merchantReturnData;
-					var smartPayRequest = transactionService.buildSmartPayRequest(req, requestParameters);
-					delete requestParameters['allowed_methods'];
-					delete requestParameters['blocked_methods'];
-					SmartPay.testMode = config.testMode;
+					var smartPayHmac = transactionService.buildSmartPayRequest(req, requestParameters);
+					var smartPayURL = transactionService.getSmartPayURL();
 					var encryptedMerchantReturnData = transactionService.encrypt(requestParameters.merchantReturnData);
 					var collection = db.collection(config.dbCollection);
 					var document = {
@@ -112,7 +109,8 @@ module.exports = {
 						res.render('confirm', {
 							calculation: calculation,
 							requestParameters: requestParameters,
-							smartPayRequest: smartPayRequest,
+							smartPayHmac: smartPayHmac,
+							smartPayURL: smartPayURL,
 							transaction: res.locals.transaction,
 							journeyDescription: journeyDescription(res, 'confirm')
 						});
@@ -135,8 +133,9 @@ module.exports = {
 		try {
 			var responseParameters = req.query;
 			var transactionService = new TransactionService(res.locals.transaction);
+			var merchantSig = responseParameters.merchantSig;
 			var smartPayResponse = transactionService.buildSmartPayResponse(req, responseParameters);
-			if (smartPayResponse.verified()) {
+			if (transactionService.getVerifiedStatus(merchantSig, smartPayResponse)) {
 				var extractedParameters = transactionService.extractParameterList(req, responseParameters, function (merchantReturnDataDecoded) {
 					extractedParameters.merchantReturnData = merchantReturnDataDecoded;
 					extractedParameters.paymentMethod = transactionService.formatPaymentMethod(extractedParameters.paymentMethod);

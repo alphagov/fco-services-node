@@ -15,12 +15,12 @@
 
         <%- partial("partials/transactions/" + transaction.slug + "/_confirm", { calculation: calculation }) %>
         
-		<form action=<%= smartPayRequest.requestUrl() %> method="post" class="smartpay-submit">
+		<form action=<%= smartPayURL %> method="post" class="smartpay-submit">
         <% var ordered =  requestParameters; %>
         <% for(var key in ordered){ %>
           <input type="hidden" name="<%= key %>" value="<%= ordered[key] %>" />
         <% } %>
-		<input type="hidden" name="merchantSig" value="<%= smartPayRequest.hmacSignature() %>" />
+		<input type="hidden" name="merchantSig" value="<%= smartPayHmac %>" />
 
             <%if (transaction.slug === 'pay-legalisation-post'){%>
             <p id="get-started" class="get-started-post group">

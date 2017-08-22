@@ -1,5 +1,4 @@
 var app = require('./../../app'),
-	SmartPay = require('smartpay'),
 	request = require('supertest'),
 	Response = require('express').response,
 	should = require('should'),

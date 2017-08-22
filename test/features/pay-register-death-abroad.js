@@ -1,7 +1,6 @@
 var app = require('./../../app'),
     browser,
     Browser = require('zombie'),
-    SmartPay = require('smartpay'),
     http = require('http'),
     port = (process.env.PORT || 1337),
     should = require('should');
