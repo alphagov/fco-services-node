@@ -1,5 +1,4 @@
-var SmartPay = require('smartpay'),
-	should = require('should'),
+var should = require('should'),
 	TransactionService = require('./../../lib/transaction_service'),
 	config = require('./../../config/smart_pay.js').config,
 	MongoClient = require('mongodb').MongoClient;
