@@ -13,7 +13,7 @@ exports.config = {
 	emailFromAddress: process.env['email_from_address'],
 	legalisationOfficeEmailAddress: process.env['legalisation_office_email_address'],
 	pspId: 'pspid',
-	testMode: (process.env['TEST_MODE'] !== 'false'),
+	testMode: process.env['TEST_MODE'],
 	notificationSlug: 'pay-legalisation-drop-off',
 	accounts: {
 		'legalisation-post': {
