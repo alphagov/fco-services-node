@@ -1,7 +1,7 @@
 <p class="summary">Pay to register the death of a British national abroad.</p>
-<%- partial("partials/questions/registration_count", { questionText: "How many deaths do you need to register? Each registration costs &pound;"+transaction.registration_cost+". This does not include a copy of the certificate." }) %>
+<%- partial("partials/questions/registration_count", { questionText: "How many deaths do you need to register? Each registration costs £"+transaction.registration_cost+". This does not include a copy of the certificate." }) %>
 
-<%- partial("partials/questions/document_count", { questionText: "How many certificates do you need? Each one costs &pound;"+transaction.document_cost+"." }) %>
+<%- partial("partials/questions/document_count", { questionText: "How many certificates do you need? Each one costs £"+transaction.document_cost+"." }) %>
 
 <%- partial("partials/questions/postage_options", { questionText: "You must pay for your documents to be returned to you by tracked courier. Where do you want them to be returned to?" }) %>
 

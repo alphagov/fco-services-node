@@ -26,7 +26,7 @@ app.enable('trust proxy');
 // which may depend on successful secure protocol detection.
 app.use(routes.azureSecureMiddleware);
 
-app.use(helmet.xframe('deny'));
+app.use(helmet.frameguard({ action: 'sameorigin' }));
 // HSTS Header with maxAge of 1 year.
 app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
 

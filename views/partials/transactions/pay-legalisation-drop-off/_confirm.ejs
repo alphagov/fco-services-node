@@ -1,1 +1,1 @@
-<p>It costs &pound;<%= formatMoney(calculation.totalCost) %> for <%= pluralise("document", calculation.documentCount) %><% if (calculation.postageOption){ %> plus <%= calculation.postageOption.label %> postage<% } %>.</p>
+<p>It costs £<%= formatMoney(calculation.totalCost) %> for <%= pluralise("document", calculation.documentCount) %><% if (calculation.postageOption){ %> plus <%= calculation.postageOption.label %> postage<% } %>.</p>

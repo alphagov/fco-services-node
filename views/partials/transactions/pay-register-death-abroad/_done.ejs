@@ -8,7 +8,7 @@
 		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
 		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
 		<p>Service: <%= transaction.slug %></p>
-		<p>Amount: &pound;<%= formatMoney(merchantReturnDataJson.pa) %></p>
+		<p>Amount: £<%= formatMoney(merchantReturnDataJson.pa) %></p>
 		<p>Card type: <%= extractedParameters.paymentMethod %></p>
 		<p>You have paid for <%= pluralise("death registration", registrationCount(merchantReturnDataJson)) %> and <%= pluralise("certificate", documentCount(merchantReturnDataJson)) %> and postage coverage to <%=capitalise(merchantReturnDataJson.po) %>.</p>
 		
