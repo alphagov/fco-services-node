@@ -1,1 +1,1 @@
-<p>The cost for <%= pluralise("registration", calculation.registrationCount) %> and <%= pluralise("certificate", calculation.documentCount) %><% if (calculation.postage){ %><%= calculation.itemList.postage %><% } %> is &pound;<%= formatMoney(calculation.totalCost) %>.</p>
+<p>The cost for <%= pluralise("registration", calculation.registrationCount) %> and <%= pluralise("certificate", calculation.documentCount) %><% if (calculation.postage){ %><%= calculation.itemList.postage %><% } %> is £<%= formatMoney(calculation.totalCost) %>.</p>
