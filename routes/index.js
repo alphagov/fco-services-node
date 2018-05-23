@@ -2,6 +2,8 @@
  * Require and export siblings.
  */
 exports.healthcheck = require('./healthcheck').healthcheck;
+exports.cookies = require('./cookies').cookies;
+exports.privacyPolicy = require('./privacyPolicy').privacyPolicy;
 exports.smart_pay = require('./smart_pay');
 exports.errors = require('./errors');
 

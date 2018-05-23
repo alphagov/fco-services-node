@@ -80,6 +80,10 @@ app.get('/confirm', function (req, res) { res.redirect('/start'); });
 app.get('/done', routes.smart_pay.middleware.findTransaction, routes.smart_pay.done);
 app.post('/notification', routes.smart_pay.middleware.findTransaction, routes.smart_pay.notification);
 
+// Generic pages
+app.get('/cookies', routes.cookies);
+app.get('/privacy-policy', routes.privacyPolicy);
+
 module.exports = app;
 
 MongoClient.connect(config.dbConnectionString, function (err, database) {
