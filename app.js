@@ -25,6 +25,7 @@ app.enable('trust proxy');
 // Important that this middleware is employed before any others
 // which may depend on successful secure protocol detection.
 app.use(routes.azureSecureMiddleware);
+app.use(routes.currentService);
 
 app.use(helmet.frameguard({ action: 'sameorigin' }));
 // HSTS Header with maxAge of 1 year.

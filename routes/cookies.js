@@ -1,11 +1,9 @@
-/*
- * GET /healthcheck
- */
-exports.cookies = function (req, res, next) {
-    var msg = 'How cookies are used on the payment service';
+exports.cookies = function (req, res) {
+
+    var msg = 'Cookies';
 
     res.status(200);
-    res.locals.journeyDescription = 'How cookies are used on the payment service';
+    res.locals.journeyDescription = 'Cookies';
     res.locals.pageTitle = msg;
 
     if (req.accepts('html')) {

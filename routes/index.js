@@ -16,3 +16,44 @@ exports.azureSecureMiddleware = function (req, res, next) {
   }
   return next();
 };
+
+exports.currentService = function (req, res, next) {
+
+        var service = '';
+
+        switch (req.subdomains[1]) {
+            case 'pay-register-birth-abroad':
+
+                service = 'Payment to register a birth abroad';
+                break;
+
+            case 'pay-register-death-abroad':
+
+                service = 'Payment to register a death abroad';
+                break;
+
+            case 'pay-foreign-marriage-certificates':
+
+                service = 'Payment for certificates to get married abroad';
+                break;
+
+            case 'pay-legalisation-post':
+
+                service = 'Get a document legalised';
+                break;
+
+            case 'pay-legalisation-drop-off':
+
+                service = 'Get a document legalised';
+                break;
+
+            default:
+
+                service = '';
+        }
+
+        global.currentService = service;
+
+    return next();
+
+};
