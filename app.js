@@ -25,6 +25,7 @@ app.enable('trust proxy');
 // Important that this middleware is employed before any others
 // which may depend on successful secure protocol detection.
 app.use(routes.azureSecureMiddleware);
+app.use(routes.currentService);
 
 app.use(helmet.frameguard({ action: 'sameorigin' }));
 // HSTS Header with maxAge of 1 year.
@@ -79,6 +80,10 @@ app.post('/confirm', routes.smart_pay.middleware.findTransaction, routes.smart_p
 app.get('/confirm', function (req, res) { res.redirect('/start'); });
 app.get('/done', routes.smart_pay.middleware.findTransaction, routes.smart_pay.done);
 app.post('/notification', routes.smart_pay.middleware.findTransaction, routes.smart_pay.notification);
+
+// Generic pages
+app.get('/cookies', routes.cookies);
+app.get('/privacy-policy', routes.privacyPolicy);
 
 module.exports = app;
 

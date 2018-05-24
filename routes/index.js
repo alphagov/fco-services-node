@@ -2,6 +2,8 @@
  * Require and export siblings.
  */
 exports.healthcheck = require('./healthcheck').healthcheck;
+exports.cookies = require('./cookies').cookies;
+exports.privacyPolicy = require('./privacyPolicy').privacyPolicy;
 exports.smart_pay = require('./smart_pay');
 exports.errors = require('./errors');
 
@@ -13,4 +15,45 @@ exports.azureSecureMiddleware = function (req, res, next) {
     req.headers['x-forwarded-proto'] = 'https';
   }
   return next();
+};
+
+exports.currentService = function (req, res, next) {
+
+        var service = '';
+
+        switch (req.subdomains[1]) {
+            case 'pay-register-birth-abroad':
+
+                service = 'Payment to register a birth abroad';
+                break;
+
+            case 'pay-register-death-abroad':
+
+                service = 'Payment to register a death abroad';
+                break;
+
+            case 'pay-foreign-marriage-certificates':
+
+                service = 'Payment for certificates to get married abroad';
+                break;
+
+            case 'pay-legalisation-post':
+
+                service = 'Get a document legalised';
+                break;
+
+            case 'pay-legalisation-drop-off':
+
+                service = 'Get a document legalised';
+                break;
+
+            default:
+
+                service = '';
+        }
+
+        global.currentService = service;
+
+    return next();
+
 };
