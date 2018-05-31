@@ -82,8 +82,8 @@ app.get('/done', routes.smart_pay.middleware.findTransaction, routes.smart_pay.d
 app.post('/notification', routes.smart_pay.middleware.findTransaction, routes.smart_pay.notification);
 
 // Generic pages
-app.get('/cookies', routes.cookies);
-app.get('/privacy-policy', routes.privacyPolicy);
+app.get('/cookies', routes.smart_pay.middleware.findTransaction, routes.cookies);
+app.get('/privacy-policy', routes.smart_pay.middleware.findTransaction, routes.privacyPolicy);
 
 module.exports = app;
 
