@@ -41,7 +41,11 @@ Transaction.transactions = function () {
 };
 
 Transaction.prototype.trackingSiteId = function () {
-  return this.config.testMode ? this.test_tracking_site_id : this.tracking_site_id;
+  if (this.config.testMode === "true") {
+      return this.test_tracking_site_id
+  } else {
+      return this.tracking_site_id;
+  }
 };
 
 module.exports = Transaction;
