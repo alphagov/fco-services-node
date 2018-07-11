@@ -81,8 +81,11 @@
   .panel-border-wide {
     border-left-width: 10px;
   }
-  .panel-border-narrow {
-    border-left-width: 1px;
+  .panel-indent-small {
+    border-left: 1px solid #bfc1c3;
+    padding-left: 15px;
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
   .panel {
     -webkit-box-sizing: border-box;
