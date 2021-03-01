@@ -25,12 +25,12 @@ describe("Pay to register a birth abroad", function(){
 
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.text('.inner label[for="transaction_email_address"]').should.match(/Please enter your email address/);
-        
+
         browser.select('#transaction_rc','2');
         browser.select('#transaction_dc', '0');
         browser.choose('#transaction_postage_option_uk');
         browser.fill('#transaction_email_address', 'test@mail.com');
-        
+
         browser.pressButton('Calculate total', function(err){
 
           //should.not.exist(err);
@@ -72,8 +72,8 @@ describe("Pay to register a birth abroad", function(){
         browser.query("#transaction_country").value.should.equal("spain");
 
         browser.text("title").should.equal('Payment to register a birth abroad - GOV.UK');
-        browser.text('.options-list li:first-child').should.match(/^UK address or British Forces Post Office - £5\.50$/);
-        browser.text('.options-list li:nth-child(2)').should.match(/^Europe .*? £14\.50$/);
+        browser.text('.options-list li:first-child').should.match(/^UK address or British Forces Post Office - £5/);
+        browser.text('.options-list li:nth-child(2)').should.match(/^Europe .*? £15/);
         browser.text('.options-list li:nth-child(3)').should.equal('Rest of the world - £25');
         browser.text('.inner label[for="transaction_email_address"]').should.match(/Please enter your email address/);
 

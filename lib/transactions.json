@@ -10,17 +10,17 @@
     "registration_cost":150,
     "postage_options": [
       { "key":"uk",
-        "cost":5.5,
+        "cost":5,
         "label":"UK address or British Forces Post Office"
       },
       {
         "key":"europe",
-        "cost":14.5,
+        "cost":15,
         "label":"Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia and Herzegovina, Georgia, Liechtenstein, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey and Ukraine)"
       },
       {
         "key":"rest-of-world",
-        "cost":25,
+        "cost":20,
         "label":"Rest of the world"
       }
     ],
@@ -56,17 +56,17 @@
     "postage_options": [
       {
         "key":"uk",
-        "cost":5.5,
+        "cost":5,
         "label":"UK address or British Forces Post Office"
       },
       {
         "key":"europe",
-        "cost":14.5,
+        "cost":15,
         "label":"Europe (excluding Albania, Armenia, Azerbaijan, Belarus, Bosnia and Herzegovina, Georgia, Liechtenstein, Macedonia, Moldova, Montenegro, Russia, Serbia, Turkey and Ukraine)"
       },
       {
         "key":"rest-of-world",
-        "cost":25,
+        "cost":20,
         "label":"Rest of the world"
       }
     ],
