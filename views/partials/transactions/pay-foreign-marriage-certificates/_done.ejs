@@ -2,13 +2,13 @@
 <h2>Authorisation for payment taken</h2>
 
 
-<p>Thank you for your order from the Foreign & Commonwealth Office. We have taken pre-authorisation for the following:</p>
+<p>Thank you for your order from the Foreign, Commonwealth and Development Office. We have taken pre-authorisation for the following:</p>
 
 <div class ="content-block">
 	<div class ="application-notice info-notice">
 		<p>Date: <%= date %></p>
 		<p>Payment Reference: <%= extractedParameters.merchantReference %></p>
-		<p>FCO Reference: <%= extractedParameters.pspReference %></p>
+		<p>FCDO Reference: <%= extractedParameters.pspReference %></p>
 		<p>Service: <%= transaction.slug %></p>
 		<p>Amount: £<%= formatMoney(merchantReturnDataJson.pa) %></p>
 		<p>Card type: <%= extractedParameters.paymentMethod %></p>
@@ -22,4 +22,4 @@
 
 <h2>What to do next</h2>
  
-<p>Print out this page or your emailed confirmation and send it, along with your application form and supporting documents listed on the form, to the Foreign & Commonwealth Office (FCO). The address is on the form.</p>
+<p>Print out this page or your emailed confirmation and send it, along with your application form and supporting documents listed on the form, to the Foreign, Commonwealth and Development Office (FCDO). The address is on the form.</p>
